@@ -13,18 +13,18 @@ import { Whiteboard } from '../whiteboard';
 export const MeetingView = ({ meetingId, onMeetingLeave }) => {
   const [joined, setJoined] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-  // const { startWhiteboard, stopWhiteboard, whiteboardUrl } = useWhiteboard();
-  // const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+  const { startWhiteboard, stopWhiteboard, whiteboardUrl } = useWhiteboard();
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
 
-  // const handleWhiteboard = () => {
-  //   if (!isWhiteboardOpen) {
-  //     startWhiteboard();
-  //   } else {
-  //     stopWhiteboard();
-  //   }
+  const handleWhiteboard = () => {
+    if (!isWhiteboardOpen) {
+      startWhiteboard();
+    } else {
+      stopWhiteboard();
+    }
 
-  //   setIsWhiteboardOpen((prev) => !prev);
-  // };
+    setIsWhiteboardOpen((prev) => !prev);
+  };
 
   const { join, participants } = useMeeting({
     onMeetingJoined: () => setJoined('JOINED'),
@@ -68,18 +68,18 @@ export const MeetingView = ({ meetingId, onMeetingLeave }) => {
 
                 {/* handle bgChange, whiteboard & chatPannel */}
                 <div className="flex gap-4">
-                  {/* <Button onClick={handleWhiteboard}>start whiteboard</Button> */}
+                  <Button onClick={handleWhiteboard} text="start whiteboard" />
                 </div>
               </div>
             </div>
 
             {/* participants, chatPannel & whiteboard */}
             <Participants participants={participants} />
-            {/* <Whiteboard
+            <Whiteboard
               whiteboardUrl={whiteboardUrl}
               isWhiteboardOpen={isWhiteboardOpen}
               handleWhiteboard={handleWhiteboard}
-            /> */}
+            />
           </div>
         ) : joined === 'JOINING' ? (
           <Button
