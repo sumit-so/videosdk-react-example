@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMeeting } from '@videosdk.live/react-sdk';
+import { useMeeting, useWhiteboard } from '@videosdk.live/react-sdk';
 
 import Button from '../../@ui/button';
 import { ButtonIcon } from '../../@ui/button-icon';
@@ -8,10 +8,23 @@ import copyIcon from '../../../public/icons/copy.png';
 
 import { Controls } from '../controls';
 import { Participants } from '../participants';
+import { Whiteboard } from '../whiteboard';
 
 export const MeetingView = ({ meetingId, onMeetingLeave }) => {
   const [joined, setJoined] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
+  // const { startWhiteboard, stopWhiteboard, whiteboardUrl } = useWhiteboard();
+  // const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+
+  // const handleWhiteboard = () => {
+  //   if (!isWhiteboardOpen) {
+  //     startWhiteboard();
+  //   } else {
+  //     stopWhiteboard();
+  //   }
+
+  //   setIsWhiteboardOpen((prev) => !prev);
+  // };
 
   const { join, participants } = useMeeting({
     onMeetingJoined: () => setJoined('JOINED'),
@@ -54,12 +67,19 @@ export const MeetingView = ({ meetingId, onMeetingLeave }) => {
                 <Controls onMeetingLeave={onMeetingLeave} />
 
                 {/* handle bgChange, whiteboard & chatPannel */}
-                <div className="flex gap-4"></div>
+                <div className="flex gap-4">
+                  {/* <Button onClick={handleWhiteboard}>start whiteboard</Button> */}
+                </div>
               </div>
             </div>
 
             {/* participants, chatPannel & whiteboard */}
             <Participants participants={participants} />
+            {/* <Whiteboard
+              whiteboardUrl={whiteboardUrl}
+              isWhiteboardOpen={isWhiteboardOpen}
+              handleWhiteboard={handleWhiteboard}
+            /> */}
           </div>
         ) : joined === 'JOINING' ? (
           <Button
