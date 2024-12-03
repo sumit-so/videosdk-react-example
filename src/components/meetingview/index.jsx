@@ -14,18 +14,7 @@ import groupIcon from '../../../public/icons/group.png';
 export const MeetingView = ({ meetingId, onMeetingLeave }) => {
   const [joined, setJoined] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-  // const { startWhiteboard, stopWhiteboard, whiteboardUrl } = useWhiteboard();
   const [isParticipantListOpened, setIsParticipantListOpened] = useState(false);
-
-  // const handleWhiteboard = () => {
-  //   if (!isWhiteboardOpen) {
-  //     startWhiteboard();
-  //   } else {
-  //     stopWhiteboard();
-  //   }
-
-  //   setIsWhiteboardOpen((prev) => !prev);
-  // };
 
   const { join, participants } = useMeeting({
     onMeetingJoined: () => setJoined('JOINED'),
@@ -84,7 +73,6 @@ export const MeetingView = ({ meetingId, onMeetingLeave }) => {
             <ParticipantList
               participants={participants}
               isParticipantListOpened={isParticipantListOpened}
-              meetingId={meetingId}
             />
           </div>
         ) : joined === 'JOINING' ? (

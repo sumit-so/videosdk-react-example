@@ -2,28 +2,12 @@ import React, { useState } from 'react';
 import micIcon from '../../../public/icons/microphone.png';
 import videocamIcon from '../../../public/icons/videocam.png';
 import { ListContainer } from '../container/participantlist';
-import { startParticipantRecording, stopParticipantRecording } from '../../API';
 
-export const ParticipantList = ({
-  participants,
-  isParticipantListOpened,
-  meetingId,
-}) => {
+export const ParticipantList = ({ participants, isParticipantListOpened }) => {
   const [showMenu, setShowMenu] = useState(null);
-  const [isRec, setIsRec] = useState(false);
 
   const handleMenuClick = (id) => {
     setShowMenu((prev) => (prev === id ? null : id)); // Toggle menu
-  };
-
-  const handleParticipantRec = async (id) => {
-    if (!isRec) {
-      await startParticipantRecording(meetingId, id);
-    } else {
-      await stopParticipantRecording(meetingId, id);
-    }
-
-    setIsRec((prev) => !prev);
   };
 
   return (
@@ -51,7 +35,7 @@ export const ParticipantList = ({
               alt="Microphone"
               className={`w-7 h-7 ml-2 ${!micOn ? 'filter grayscale opacity-50' : ''}`}
             />
-            {/* Three dots menu */}
+
             <button
               onClick={() => handleMenuClick(id)}
               className={`ml-2 text-gray-600 hover:text-gray-800 text-2xl w-[40px] ${showMenu === id ? 'bg-[whitesmoke]' : 'bg-none'}`}
@@ -64,9 +48,9 @@ export const ParticipantList = ({
               <div className="absolute z-10 flex bg-white border border-gray-300 shadow-md p-2 rounded mt-2 w-40 top-8 right-16">
                 <button
                   className="block w-full text-left text-sm text-gray-700 py-1 px-2 hover:bg-gray-200"
-                  onClick={() => handleParticipantRec(id)}
+                  onClick={() => console.log('start recording')}
                 >
-                  {isRec ? 'stop: recording... ' : 'start Recording'}
+                  start Recording
                 </button>
               </div>
             )}
