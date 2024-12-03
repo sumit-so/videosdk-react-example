@@ -8,23 +8,13 @@ import copyIcon from '../../../public/icons/copy.png';
 
 import { Controls } from '../controls';
 import { Participants } from '../participants';
-import { Whiteboard } from '../whiteboard';
+import { ParticipantList } from '../participant-list';
+import groupIcon from '../../../public/icons/group.png';
 
 export const MeetingView = ({ meetingId, onMeetingLeave }) => {
   const [joined, setJoined] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
-  // const { startWhiteboard, stopWhiteboard, whiteboardUrl } = useWhiteboard();
-  // const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
-
-  // const handleWhiteboard = () => {
-  //   if (!isWhiteboardOpen) {
-  //     startWhiteboard();
-  //   } else {
-  //     stopWhiteboard();
-  //   }
-
-  //   setIsWhiteboardOpen((prev) => !prev);
-  // };
+  const [isParticipantListOpened, setIsParticipantListOpened] = useState(false);
 
   const { join, participants } = useMeeting({
     onMeetingJoined: () => setJoined('JOINED'),
@@ -68,18 +58,22 @@ export const MeetingView = ({ meetingId, onMeetingLeave }) => {
 
                 {/* handle bgChange, whiteboard & chatPannel */}
                 <div className="flex gap-4">
-                  {/* <Button onClick={handleWhiteboard}>start whiteboard</Button> */}
+                  <ButtonIcon
+                    className="bg-[whitesmoke] p-4 rounded-lg"
+                    onClick={() => setIsParticipantListOpened((prev) => !prev)}
+                  >
+                    <img src={groupIcon} alt="participant-group" width={30} />
+                  </ButtonIcon>
                 </div>
               </div>
             </div>
 
             {/* participants, chatPannel & whiteboard */}
             <Participants participants={participants} />
-            {/* <Whiteboard
-              whiteboardUrl={whiteboardUrl}
-              isWhiteboardOpen={isWhiteboardOpen}
-              handleWhiteboard={handleWhiteboard}
-            /> */}
+            <ParticipantList
+              participants={participants}
+              isParticipantListOpened={isParticipantListOpened}
+            />
           </div>
         ) : joined === 'JOINING' ? (
           <Button

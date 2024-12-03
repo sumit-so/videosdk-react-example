@@ -2,6 +2,8 @@ import { APP_URL } from './constants/constants';
 
 // unsafe Token
 export const authToken = import.meta.env.VITE_VIDEOSDK_TOKEN;
+
+// create a meetingId
 export const createMeeting = async () => {
   const res = await fetch(`${APP_URL}/v2/rooms`, {
     method: 'POST',
